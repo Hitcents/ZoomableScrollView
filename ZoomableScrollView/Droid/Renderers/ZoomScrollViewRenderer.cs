@@ -29,7 +29,7 @@ namespace ZoomableScrollView.Droid
                     _prevScale = Math.Max((float)scrollView.MinZoom, Math.Min(_prevScale * scale, (float)scrollView.MaxZoom));
                     content.ScaleX = content.ScaleY = _prevScale;
                     System.Diagnostics.Debug.WriteLine($"Delta: {scale}  Final: {content.ScaleX}");
-                });
+                }));
             }
         }
 
