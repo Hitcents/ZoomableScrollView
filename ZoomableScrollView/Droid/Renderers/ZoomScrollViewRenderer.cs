@@ -29,10 +29,7 @@ namespace ZoomableScrollView.Droid
                     _prevScale = Math.Max((float)scrollView.MinZoom, Math.Min(_prevScale * scale, (float)scrollView.MaxZoom));
                     content.ScaleX = content.ScaleY = _prevScale;
                     System.Diagnostics.Debug.WriteLine($"Delta: {scale}  Final: {content.ScaleX}");
-                }, () =>
-                {
-                    System.Diagnostics.Debug.WriteLine("Finished");
-                }));
+                });
             }
         }
 
@@ -57,13 +54,11 @@ namespace ZoomableScrollView.Droid
     public class ClearScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener
     {
         private Action<float> _onScale;
-        private Action _onScaleEnd;
         private bool _skip = false;
 
-        public ClearScaleListener(Action<float> onScale, Action onScaleEnd = null)
+        public ClearScaleListener(Action<float> onScale)
         {
             _onScale = onScale;
-            _onScaleEnd = onScaleEnd;
         }
 
         public override bool OnScale(ScaleGestureDetector detector)
@@ -75,11 +70,6 @@ namespace ZoomableScrollView.Droid
             }
             _onScale?.Invoke(detector.ScaleFactor);
             return true;
-        }
-
-        public override void OnScaleEnd(ScaleGestureDetector detector)
-        {
-            _onScaleEnd?.Invoke();
         }
 
         public override bool OnScaleBegin(ScaleGestureDetector detector)
