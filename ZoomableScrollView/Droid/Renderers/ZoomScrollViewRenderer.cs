@@ -11,7 +11,6 @@ namespace ZoomableScrollView.Droid
 {
     public class ZoomScrollViewRenderer : ScrollViewRenderer
     {
-        private bool _isCentered = false;
         private ScaleGestureDetector _scaleDetector;
         private bool _isScaleProcess = false;
         private float _prevScale = 1f;
@@ -27,8 +26,6 @@ namespace ZoomableScrollView.Droid
                     var scrollView = Element as ZoomScrollView;
                     var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
                     var content = horScrollView.GetChildAt(0);
-                    //TODO: need to rewrite this stuff to match what iOS is doing
-
                     _prevScale = Math.Max((float)scrollView.MinZoom, Math.Min(_prevScale * scale, (float)scrollView.MaxZoom));
                     content.ScaleX = content.ScaleY = _prevScale;
                     System.Diagnostics.Debug.WriteLine($"Delta: {scale}  Final: {content.ScaleX}");
@@ -54,26 +51,6 @@ namespace ZoomableScrollView.Droid
             }
             else
                 return base.OnTouchEvent(e);
-        }
-
-        protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
-        {
-            base.OnLayout(changed, left, top, right, bottom);
-            if (!_isCentered)
-            {
-                _isCentered = true;
-                var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
-                if (horScrollView != null)
-                {
-                    ScrollTo(0, (horScrollView.Height - Height) / 2);
-                    var content = horScrollView.GetChildAt(0);
-                    if (content != null)
-                    {
-                        horScrollView.ScrollTo((content.Width - horScrollView.Width) / 2, 0);
-                        content.ScaleX = content.ScaleY = 1;
-                    }
-                }
-            }
         }
     }
 
