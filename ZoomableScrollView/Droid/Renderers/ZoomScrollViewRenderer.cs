@@ -41,6 +41,7 @@ namespace ZoomableScrollView.Droid
             }
             else if (_isScaleProcess)
             {
+                //HACK:
                 //Prevent letting any touch events from moving the scroll view until all fingers are up from zooming...This prevents the jumping and skipping around after user zooms.
                 if(e.Action == MotionEventActions.Up)
                     _isScaleProcess = false;
