@@ -2,9 +2,9 @@
 
 namespace ZoomableScrollView
 {
-    public partial class ZoomableScrollViewPage : ContentPage
+    public partial class ExampleScrollPage : ContentPage
     {
-        public ZoomableScrollViewPage()
+        public ExampleScrollPage()
         {
             InitializeComponent();
         }

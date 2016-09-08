@@ -8,7 +8,7 @@ namespace ZoomableScrollView
         {
             InitializeComponent();
 
-            MainPage = new ZoomableScrollViewPage();
+            MainPage = new ExampleScrollPage();
         }
 
         protected override void OnStart()
