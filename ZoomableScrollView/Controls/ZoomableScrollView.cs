@@ -13,14 +13,6 @@ namespace ZoomableScrollView
     /// </summary>
     public class ZoomScrollView : ScrollView
     {
-        public static readonly BindableProperty CurrentZoomProperty = BindableProperty.Create(nameof(CurrentZoom), typeof(double), typeof(ZoomScrollView), 1d);
-
-        public double CurrentZoom
-        {
-            get { return (double)GetValue(CurrentZoomProperty); }
-            set { SetValue(CurrentZoomProperty, value); }
-        }
-
         public static readonly BindableProperty MaximumZoomProperty = BindableProperty.Create(nameof(MaxZoom), typeof(double), typeof(ZoomScrollView), 1d);
 
         public double MaxZoom
@@ -35,14 +27,6 @@ namespace ZoomableScrollView
         {
             get { return (double)GetValue(MinimumZoomProperty); }
             set { SetValue(MinimumZoomProperty, value); }
-        }
-
-        public static readonly BindableProperty IgnoreMinimumZoomProperty = BindableProperty.Create(nameof(IgnoreMinimumZoom), typeof(bool), typeof(ZoomScrollView), false);
-
-        public bool IgnoreMinimumZoom
-        {
-            get { return (bool)GetValue(IgnoreMinimumZoomProperty); }
-            set { SetValue(IgnoreMinimumZoomProperty, value); }
         }
     }
 }
