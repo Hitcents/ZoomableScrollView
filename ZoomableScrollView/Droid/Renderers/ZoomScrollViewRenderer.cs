@@ -5,11 +5,11 @@ using Xamarin.Forms.Platform.Android;
 using ZoomableScrollView;
 using ZoomableScrollView.Droid;
 
-[assembly: ExportRenderer(typeof(ZoomScrollView), typeof(ZoomableScrollViewRenderer))]
+[assembly: ExportRenderer(typeof(ZoomScrollView), typeof(ZoomScrollViewRenderer))]
 
 namespace ZoomableScrollView.Droid
 {
-    public class ZoomableScrollViewRenderer : ScrollViewRenderer
+    public class ZoomScrollViewRenderer : ScrollViewRenderer
     {
         private bool _isCentered = false;
         private ScaleGestureDetector _scaleDetector;
