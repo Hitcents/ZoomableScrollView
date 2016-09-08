@@ -13,6 +13,7 @@ namespace ZoomableScrollView.iOS
     public class ZoomScrollViewRenderer : ScrollViewRenderer
     {
         private bool _ignoreZeroContentOffset;
+
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
@@ -26,7 +27,6 @@ namespace ZoomableScrollView.iOS
                     ShowsHorizontalScrollIndicator = false;
                 if (element.ScrollX != 0 || element.ScrollY != 0 || element.CurrentZoom != 1)
                 {
-                    //UpdateMinimumZoom(element.IgnoreMinimumZoom);
                     //HACK: it did not work if I did not BeginInvoke here
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -49,11 +49,13 @@ namespace ZoomableScrollView.iOS
                 e.OldElement.PropertyChanged -= OnPropertyChanged;
             }
         }
+
         public override bool TouchesShouldCancelInContentView(UIView view)
         {
             //NOTE: We need zooming to be allowed when you happen to tap a UIButton. Overriding this method, fixes our case.
             return true;
         }
+
         public override CGPoint ContentOffset
         {
             get { return base.ContentOffset; }
@@ -69,23 +71,14 @@ namespace ZoomableScrollView.iOS
                 base.ContentOffset = value;
             }
         }
-        private void UpdateMinimumZoom(bool ignore = false)
-        {
-            if (ignore)
-                return;
-            var contentSize = ContentSize;
-            var size = new CGSize(Element.Width, Element.Height);
-            nfloat widthRatio = size.Width / contentSize.Width;
-            nfloat heightRatio = size.Height / contentSize.Height;
-            MinimumZoomScale = NMath.Min(1, NMath.Min(widthRatio, heightRatio));
 
-        }
         private void UpdateContentSize(double zoom)
         {
             var contentSize = ContentSize;
             ContentOffset = new CGPoint((contentSize.Width) / 2, (contentSize.Height) / 2);
             ZoomScale = (float)zoom;
         }
+
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var element = Element as ZoomScrollView;
@@ -93,7 +86,6 @@ namespace ZoomableScrollView.iOS
                 return;
             if (e.PropertyName == ZoomScrollView.ContentSizeProperty.PropertyName)
             {
-                //UpdateMinimumZoom(element.IgnoreMinimumZoom);
                 UpdateContentSize(element.CurrentZoom);
                 //HACK: something keeps setting ContentOffset back to zero, this was the only way I could stop it
                 _ignoreZeroContentOffset = true;
