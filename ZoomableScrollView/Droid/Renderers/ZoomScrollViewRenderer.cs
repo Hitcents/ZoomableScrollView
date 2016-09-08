@@ -23,36 +23,37 @@ namespace ZoomableScrollView.Droid
             {
                 _scaleDetector = new ScaleGestureDetector(Context, new ClearScaleListener(scale =>
                 {
-                    _prevScale *= scale;
                     _isScaleProcess = true;
                     var scrollView = Element as ZoomScrollView;
                     var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
                     var content = horScrollView.GetChildAt(0);
                     //TODO: need to rewrite this stuff to match what iOS is doing
-                    
-                    if(_prevScale < scrollView.MinZoom)
-                        _prevScale = (float)scrollView.MinZoom;
-                    if (_prevScale > scrollView.MaxZoom)
-                        _prevScale = (float)scrollView.MaxZoom;
+
+                    _prevScale = Math.Max((float)scrollView.MinZoom, Math.Min(_prevScale * scale, (float)scrollView.MaxZoom));
                     content.ScaleX = content.ScaleY = _prevScale;
                     System.Diagnostics.Debug.WriteLine($"Delta: {scale}  Final: {content.ScaleX}");
                 }, () =>
                 {
-                    _isScaleProcess = false;
                     System.Diagnostics.Debug.WriteLine("Finished");
                 }));
             }
         }
 
-        public override bool OnTouchEvent(MotionEvent ev)
+        public override bool DispatchTouchEvent(MotionEvent e)
         {
-            if (ev.PointerCount == 2 || _isScaleProcess)
+            if (e.PointerCount == 2)
             {
-                var handled = _scaleDetector.OnTouchEvent(ev);
-                if (handled)
-                    return true;
+                return _scaleDetector.OnTouchEvent(e);
             }
-            return base.OnTouchEvent(ev);
+            else if (_isScaleProcess)
+            {
+                //Prevent letting any touch events from moving the scroll view until all fingers are up from zooming...This prevents the jumping and skipping around after user zooms.
+                if(e.Action == MotionEventActions.Up)
+                    _isScaleProcess = false;
+                return false;
+            }
+            else
+                return base.OnTouchEvent(e);
         }
 
         protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
