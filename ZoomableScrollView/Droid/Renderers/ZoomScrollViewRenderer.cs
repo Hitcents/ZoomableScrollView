@@ -14,6 +14,7 @@ namespace ZoomableScrollView.Droid
         private bool _isCentered = false;
         private ScaleGestureDetector _scaleDetector;
         private bool _isScaleProcess = false;
+        private float _prevScale = 1f;
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
@@ -22,14 +23,18 @@ namespace ZoomableScrollView.Droid
             {
                 _scaleDetector = new ScaleGestureDetector(Context, new ClearScaleListener(scale =>
                 {
-
+                    _prevScale *= scale;
                     _isScaleProcess = true;
                     var scrollView = Element as ZoomScrollView;
                     var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
                     var content = horScrollView.GetChildAt(0);
                     //TODO: need to rewrite this stuff to match what iOS is doing
-                    var newScale = Math.Min(Math.Max(content.ScaleX * scale, 1f / (float)scrollView.MaxZoom), 1f);
-                    content.ScaleX = content.ScaleY = newScale;
+                    
+                    if(_prevScale < scrollView.MinZoom)
+                        _prevScale = (float)scrollView.MinZoom;
+                    if (_prevScale > scrollView.MaxZoom)
+                        _prevScale = (float)scrollView.MaxZoom;
+                    content.ScaleX = content.ScaleY = _prevScale;
                     System.Diagnostics.Debug.WriteLine($"Delta: {scale}  Final: {content.ScaleX}");
                 }, () =>
                 {
@@ -75,7 +80,7 @@ namespace ZoomableScrollView.Droid
     {
         private Action<float> _onScale;
         private Action _onScaleEnd;
-        bool _skip = false;
+        private bool _skip = false;
 
         public ClearScaleListener(Action<float> onScale, Action onScaleEnd = null)
         {
