@@ -20,13 +20,13 @@ namespace ZoomableScrollView.iOS
             if (element != null)
             {
                 MaximumZoomScale = (nfloat)element.MaxZoom;
-                MinimumZoomScale = 1f;
+                MinimumZoomScale = (nfloat)element.MinZoom;
                 MultipleTouchEnabled = true;
                 ShowsVerticalScrollIndicator =
                     ShowsHorizontalScrollIndicator = false;
                 if (element.ScrollX != 0 || element.ScrollY != 0 || element.CurrentZoom != 1)
                 {
-                    UpdateMinimumZoom(element.IgnoreMinimumZoom);
+                    //UpdateMinimumZoom(element.IgnoreMinimumZoom);
                     //HACK: it did not work if I did not BeginInvoke here
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -93,7 +93,7 @@ namespace ZoomableScrollView.iOS
                 return;
             if (e.PropertyName == ZoomScrollView.ContentSizeProperty.PropertyName)
             {
-                UpdateMinimumZoom(element.IgnoreMinimumZoom);
+                //UpdateMinimumZoom(element.IgnoreMinimumZoom);
                 UpdateContentSize(element.CurrentZoom);
                 //HACK: something keeps setting ContentOffset back to zero, this was the only way I could stop it
                 _ignoreZeroContentOffset = true;
