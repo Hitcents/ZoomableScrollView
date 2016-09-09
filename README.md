@@ -31,3 +31,4 @@ Android
 - Both examples seem about the same
 - When content is zoomed out, the ScrollView's `ContentSize` does not seem to be updated with the smaller scaled size. You can scroll and see empty space around the edges.
 - When zooming, it does not center the Transform at the location of your pinch. You can compare to iOS (which works), when you zoom in/out at the top left of the screen.
+- NOTE: if there is a way to not use `ScrollViewRenderer` and use raw gestures, that works for us, too. We don't have to use `Android.Widget.ScrollView` if it doesn't help us.
