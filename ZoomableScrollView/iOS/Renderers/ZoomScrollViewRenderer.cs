@@ -15,6 +15,7 @@ namespace ZoomableScrollView.iOS
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
+
             var element = e.NewElement as ZoomScrollView;
             if (element != null)
             {
@@ -26,6 +27,8 @@ namespace ZoomableScrollView.iOS
                 
                 ViewForZoomingInScrollView = v => v.Subviews[0];
             }
+
+            //NOTE: OnElementPropertyChanged is not implemented for MinimumZoom/MaxiumumZoom, we are fine with that for our app. We just want to set it once in XAML and forget about it.
         }
 
         public override bool TouchesShouldCancelInContentView(UIView view)
