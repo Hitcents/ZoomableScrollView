@@ -5,6 +5,8 @@
   xmlns:local="clr-namespace:ZoomableScrollView" 
   x:Class="ZoomableScrollView.BoxScrollPage">
   <local:ZoomScrollView Orientation="Both" MaximumZoom="2" MinimumZoom=".5">
-    <BoxView WidthRequest="200" HeightRequest="200" BackgroundColor="Red" HorizontalOptions="Center" VerticalOptions="Center"/>
+    <ContentView BackgroundColor="Aqua">
+      <BoxView WidthRequest="200" HeightRequest="200" BackgroundColor="Red" HorizontalOptions="Center" VerticalOptions="Center"/>
+    </ContentView>
   </local:ZoomScrollView>  
 </ContentPage>
