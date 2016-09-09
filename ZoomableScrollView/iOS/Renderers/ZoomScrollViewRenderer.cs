@@ -18,8 +18,8 @@ namespace ZoomableScrollView.iOS
             var element = e.NewElement as ZoomScrollView;
             if (element != null)
             {
-                MaximumZoomScale = (nfloat)element.MaxZoom;
-                MinimumZoomScale = (nfloat)element.MinZoom;
+                MaximumZoomScale = (nfloat)element.MaximumZoom;
+                MinimumZoomScale = (nfloat)element.MinimumZoom;
                 MultipleTouchEnabled = true;
                 ShowsVerticalScrollIndicator =
                     ShowsHorizontalScrollIndicator = false;

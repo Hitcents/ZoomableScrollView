@@ -26,7 +26,7 @@ namespace ZoomableScrollView.Droid
                     var scrollView = Element as ZoomScrollView;
                     var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
                     var content = horScrollView.GetChildAt(0);
-                    _prevScale = Math.Max((float)scrollView.MinZoom, Math.Min(_prevScale * scale, (float)scrollView.MaxZoom));
+                    _prevScale = Math.Max((float)scrollView.MinimumZoom, Math.Min(_prevScale * scale, (float)scrollView.MaximumZoom));
                     content.ScaleX = content.ScaleY = _prevScale;
                     System.Diagnostics.Debug.WriteLine($"Delta: {scale}  Final: {content.ScaleX}");
                 }));
