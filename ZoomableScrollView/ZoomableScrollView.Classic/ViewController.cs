@@ -16,15 +16,11 @@ namespace ZoomableScrollView.Classic
             base.ViewDidLoad();
 
             scrollView.ViewForZoomingInScrollView = (scrollView) => { return imageView; };
+            scrollView.ContentSize = imageView.Frame.Size;
             scrollView.DidZoom += (sender, e) =>
             {
                 CenterContent();
             };
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            scrollView.ContentSize = imageView.Frame.Size;
         }
 
         private void CenterContent()
