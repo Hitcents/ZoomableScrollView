@@ -26,9 +26,19 @@ namespace ZoomableScrollView.iOS
                     ShowsHorizontalScrollIndicator = false;
                 
                 ViewForZoomingInScrollView = v => v.Subviews[0];
-            }
+                DidZoom += (sender, args) =>
+                {
+                    var offSetX = Math.Max((element.Bounds.Size.Width - element.ContentSize.Width) * .5, 0);
+                    var offSetY = Math.Max((element.Bounds.Size.Height - element.ContentSize.Height) * .5, 0);
+                    var subView = Subviews[0];
+                    var center = subView.Center;
 
-            //NOTE: OnElementPropertyChanged is not implemented for MinimumZoom/MaxiumumZoom, we are fine with that for our app. We just want to set it once in XAML and forget about it.
+                    center.X = ((nfloat)element.ContentSize.Width * ZoomScale) * .5f + (nfloat)offSetX;
+                    center.Y = ((nfloat)element.ContentSize.Height * ZoomScale) * .5f + (nfloat)offSetY;
+
+                    subView.Center = center;
+                };
+            }
         }
 
         public override bool TouchesShouldCancelInContentView(UIView view)

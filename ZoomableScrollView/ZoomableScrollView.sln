@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZoomableScrollView.iOS", "i
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZoomableScrollView.Droid", "Droid\ZoomableScrollView.Droid.csproj", "{8445B0C8-DE7E-4302-9112-47462E88C458}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZoomableScrollView.Classic", "ZoomableScrollView.Classic\ZoomableScrollView.Classic.csproj", "{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{8445B0C8-DE7E-4302-9112-47462E88C458}.Release|iPhone.Build.0 = Release|Any CPU
 		{8445B0C8-DE7E-4302-9112-47462E88C458}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{8445B0C8-DE7E-4302-9112-47462E88C458}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Debug|iPhone.Build.0 = Debug|iPhone
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Release|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Release|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Release|iPhone.ActiveCfg = Release|iPhone
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Release|iPhone.Build.0 = Release|iPhone
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{41DA01B0-6F6A-4D2F-8199-7E6EC5C5B073}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
