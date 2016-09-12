@@ -18,21 +18,28 @@ namespace ZoomableScrollView.Classic
             scrollView.ViewForZoomingInScrollView = (scrollView) => { return imageView; };
             scrollView.DidZoom += (sender, e) =>
             {
-                var offSetX = Math.Max((scrollView.Bounds.Size.Width - scrollView.ContentSize.Width) * .5, 0);
-                var offSetY = Math.Max((scrollView.Bounds.Size.Height - scrollView.ContentSize.Height) * .5, 0);
-                var subView = scrollView.Subviews[0];
-                var center = subView.Center;
-
-                center.X = ((nfloat)scrollView.ContentSize.Width * scrollView.ZoomScale) * .5f + (nfloat)offSetX;
-                center.Y = ((nfloat)scrollView.ContentSize.Height * scrollView.ZoomScale) * .5f + (nfloat)offSetY;
-
-                subView.Center = center;
+                CenterContent();
             };
         }
 
         public override void ViewDidLayoutSubviews()
         {
             scrollView.ContentSize = imageView.Frame.Size;
+        }
+
+        private void CenterContent()
+        {
+            nfloat top = 0, left = 0;
+
+            if (scrollView.ContentSize.Width < scrollView.Bounds.Size.Width)
+            {
+                left = (scrollView.Bounds.Size.Width - scrollView.ContentSize.Width) * 0.5f;
+            }
+            if (scrollView.ContentSize.Height < scrollView.Bounds.Size.Height)
+            {
+                top = (scrollView.Bounds.Size.Height - scrollView.ContentSize.Height) * 0.5f;
+            }
+            scrollView.ContentInset = new UIEdgeInsets(top, left, top, left);
         }
     }
 }
