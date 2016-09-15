@@ -27,14 +27,11 @@ namespace ZoomableScrollView.Droid
                         var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
                         var content = horScrollView.GetChildAt(0);
 
-                        var deltaX = scale.FocusX / Width;
-                        var deltaWidth = Width / (content.Width * _prevScale);
-
-                        var deltaY = scale.FocusY / Height;
-                        var deltaHeight = Height / (content.Height * _prevScale);
+                        var xRatio = scale.FocusX / Width;
+                        var yRatio = scale.FocusY / Height;
                         
-                        scrollView.AnchorX = deltaX;
-                        scrollView.AnchorY = deltaY;
+                        scrollView.AnchorX = xRatio;
+                        scrollView.AnchorY = yRatio;
                     },
                     scale =>
                     {
