@@ -20,16 +20,34 @@ namespace ZoomableScrollView.Droid
             base.OnElementChanged(e);
             if (e.NewElement != null)
             {
-                _scaleDetector = new ScaleGestureDetector(Context, new ClearScaleListener(scale =>
-                {
-                    _isScaleProcess = true;
-                    var scrollView = Element as ZoomScrollView;
-                    var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
-                    var content = horScrollView.GetChildAt(0);
-                    _prevScale = Math.Max((float)scrollView.MinimumZoom, Math.Min(_prevScale * scale, (float)scrollView.MaximumZoom));
-                    content.ScaleX = content.ScaleY = _prevScale;
-                    System.Diagnostics.Debug.WriteLine($"Delta: {scale}  Final: {content.ScaleX}");
-                }));
+                _scaleDetector = new ScaleGestureDetector(Context, new ClearScaleListener(
+                    scale => 
+                    {
+                        var scrollView = Element as ZoomScrollView;
+                        var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
+                        var content = horScrollView.GetChildAt(0);
+
+                        var deltaX = scale.FocusX / Width;
+                        var deltaWidth = Width / (content.Width * _prevScale);
+
+                        var deltaY = scale.FocusY / Height;
+                        var deltaHeight = Height / (content.Height * _prevScale);
+                        
+                        scrollView.AnchorX = deltaX;
+                        scrollView.AnchorY = deltaY;
+                    },
+                    scale =>
+                    {
+                        _isScaleProcess = true;
+                        var scrollView = Element as ZoomScrollView;
+                        var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
+                        var content = horScrollView.GetChildAt(0);
+                        _prevScale = Math.Max((float)scrollView.MinimumZoom, Math.Min(_prevScale * scale.ScaleFactor, (float)scrollView.MaximumZoom));
+                        //set pivotx & pivoty here to mid point of two touches.
+                        content.ScaleX = content.ScaleY = _prevScale;
+                        System.Diagnostics.Debug.WriteLine($"Delta: {scale}  Final: {content.ScaleX}");
+                        System.Diagnostics.Debug.WriteLine($"AnchorX: {scrollView.AnchorX}  AnchorY: {scrollView.AnchorY}");
+                    }));
             }
         }
 
@@ -54,12 +72,14 @@ namespace ZoomableScrollView.Droid
 
     public class ClearScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener
     {
-        private Action<float> _onScale;
+        private Action<ScaleGestureDetector> _onScale;
+        private Action<ScaleGestureDetector> _onScaleBegin;
         private bool _skip = false;
 
-        public ClearScaleListener(Action<float> onScale)
+        public ClearScaleListener(Action<ScaleGestureDetector> onScaleBegin, Action<ScaleGestureDetector> onScale)
         {
             _onScale = onScale;
+            _onScaleBegin = onScaleBegin;
         }
 
         public override bool OnScale(ScaleGestureDetector detector)
@@ -69,7 +89,7 @@ namespace ZoomableScrollView.Droid
                 _skip = false;
                 return true;
             }
-            _onScale?.Invoke(detector.ScaleFactor);
+            _onScale?.Invoke(detector);
             return true;
         }
 
@@ -77,7 +97,8 @@ namespace ZoomableScrollView.Droid
         {
             System.Diagnostics.Debug.WriteLine($"Begin {detector.ScaleFactor}");
             _skip = true;
-            return base.OnScaleBegin(detector);
+            _onScaleBegin.Invoke(detector);
+            return true;
         }
     }
 }

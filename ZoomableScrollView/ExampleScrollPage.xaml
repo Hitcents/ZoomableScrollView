@@ -4,7 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
   xmlns:local="clr-namespace:ZoomableScrollView" 
   x:Class="ZoomableScrollView.ExampleScrollPage">
-  <local:ZoomScrollView Orientation="Both" MaximumZoom="2" MinimumZoom=".5">
+  <local:ZoomScrollView Orientation="Both" MaximumZoom="2.5" MinimumZoom="1">
     <AbsoluteLayout>
       <Image Source="Background.png"/>
     </AbsoluteLayout>

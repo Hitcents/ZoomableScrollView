@@ -6,5 +6,6 @@
     <StackLayout>
 		  <Button Text="Example Scroll Page" Clicked="ExampleScrollPage"/>
 		  <Button Text="Example Box Scroll Page" Clicked="BoxScrollPage"/>
+      <Button Text="Example Pan Gesture Page" Clicked="PanGesturePage"/>
 		</StackLayout>
 </ContentPage>

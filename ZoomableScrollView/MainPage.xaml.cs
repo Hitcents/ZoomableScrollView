@@ -21,6 +21,11 @@ namespace ZoomableScrollView
         {
             await Navigation.PushAsync(new ExampleScrollPage());
         }
+
+        private async void PanGesturePage(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PanGesturePage());
+        }
     }
 }
 
