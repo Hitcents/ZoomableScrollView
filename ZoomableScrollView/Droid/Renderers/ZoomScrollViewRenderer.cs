@@ -40,7 +40,7 @@ namespace ZoomableScrollView.Droid
                         var horScrollView = GetChildAt(0) as global::Android.Widget.HorizontalScrollView;
                         var content = horScrollView.GetChildAt(0);
                         _prevScale = Math.Max((float)scrollView.MinimumZoom, Math.Min(_prevScale * scale.ScaleFactor, (float)scrollView.MaximumZoom));
-                        //set pivotx & pivoty here to mid point of two touches.
+                        
                         content.ScaleX = content.ScaleY = _prevScale;
                         System.Diagnostics.Debug.WriteLine($"Delta: {scale}  Final: {content.ScaleX}");
                         System.Diagnostics.Debug.WriteLine($"AnchorX: {scrollView.AnchorX}  AnchorY: {scrollView.AnchorY}");
