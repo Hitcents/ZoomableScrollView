@@ -28,6 +28,7 @@ namespace ZoomableScrollView
                         Content.TranslationY = _y;
                         break;
                     case GestureStatus.Running:
+                        //needs to not let you pan outside the bounds of the container.
                         Content.TranslationX = _x + e.TotalX;
                         Content.TranslationY = _y + e.TotalY;
                         break;
@@ -54,7 +55,8 @@ namespace ZoomableScrollView
                     case GestureStatus.Started:
                         {
                             startScale = Content.Scale;
-                            Content.AnchorX = Content.AnchorY = 0;
+                            Content.AnchorX = e.ScaleOrigin.X;
+                            Content.AnchorY = e.ScaleOrigin.Y;
                         }
                         break;
                     case GestureStatus.Running:
@@ -75,8 +77,8 @@ namespace ZoomableScrollView
                             double targetX = xOffset - (originX * Content.Width) * (_currentScale - startScale);
                             double targetY = yOffset - (originY * Content.Height) * (_currentScale - startScale);
 
-                            Content.TranslationX = Clamp(targetX, -Content.Width * (_currentScale - 1), 0);
-                            Content.TranslationY = Clamp(targetY, -Content.Height * (_currentScale - 1), 0);
+                            //Content.TranslationX = Clamp(targetX, -Content.Width * (_currentScale - 1), 0);
+                            //Content.TranslationY = Clamp(targetY, -Content.Height * (_currentScale - 1), 0);
 
                             Content.Scale = _currentScale;
                         }
