@@ -37,9 +37,9 @@ namespace ZoomableScrollView.iOS
         {
             base.LayoutSubviews();
 
-            var view = Subviews[0];
             if (Element != null)
             {
+                var view = Subviews[0];
                 ContentSize = view.Frame.Size;
             }
         }
